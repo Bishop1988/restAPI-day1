@@ -11,14 +11,15 @@ exports.hashPass = async (req, res, next) => {
     }
 }
 
-exports.authenticate = async (req, res) => {
+exports.authenticate = async (req, res, next) => {
     const account = await User.findOne({ email: req.body.email })
-    if (account == null) {
+    if (!account) {
         return res.status(500).send('cannot find user')
     }
     try {
         if (await bcrypt.compare(req.body.pass, account.pass)) {
-            res.status(200).send('Logged in')
+            req.user = account
+            next()
         } else {
             res.status(500).send("Invalid password")
         }

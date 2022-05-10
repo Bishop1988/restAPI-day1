@@ -10,6 +10,14 @@ exports.signUp = async (req, res) => {
     }
 }
 
+exports.login = async (req, res) => {
+    try {
+        res.status(200).send({ user: req.user })
+    } catch (err) {
+        console.log(err)
+    }
+}
+
 exports.listUsers = async (req, res) => {
     try {
         const users = await User.find({})
