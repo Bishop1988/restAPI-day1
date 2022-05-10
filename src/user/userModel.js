@@ -1,10 +1,20 @@
 const mongoose = require("mongoose")
 
 const userSchema = new mongoose.Schema({
-    name: {
+    username: {
         type: String,
         required: true,
     },
+    email: {
+        type: String,
+        required: true,
+        unique: true,
+        match: /.+\@.+\..+/,
+    },
+    pass: {
+        type: String,
+        required: true
+    }
 })
 
 const User = mongoose.model("User", userSchema)
