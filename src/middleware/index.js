@@ -29,6 +29,18 @@ exports.authenticate = async (req, res, next) => {
     }
 }
 
-//signup route
-//login route
-// bcrypt unhashing
+exports.authenticateEmail = async (req, res, next) => {
+    const email = req.body.email
+    let mail_format = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+
+    try {
+        if (!email.match(mail_format)){
+            res.status(500).send('Please enter a valid email')
+        } else {
+            next()
+        }
+    } catch (err) {
+        console.log(err)
+        res.status(500).send({ message: err.message })
+    }
+}
