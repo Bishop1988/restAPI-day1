@@ -33,7 +33,7 @@ exports.updateUser = async (req, res) => {
     try {
         const user = await User.updateOne(
             { _id: id },
-            { name: req.body.name }
+            { username: req.body.username }
         )
         res.status(200).send({ user })
     } catch (err) {
